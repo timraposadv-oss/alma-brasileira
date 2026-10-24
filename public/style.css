@@ -72,3 +72,5 @@ nav button[hidden]{display:none}
 .card .ph{font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif}
 .pre{white-space:pre-wrap;overflow-wrap:anywhere}
 .small{font-size:13px;color:var(--mut)}
+
+.lock{background:#fff7dd;border:1px solid #f0d27a;border-radius:12px;padding:14px;margin-top:8px}
