@@ -177,7 +177,19 @@ async function deleteReply(db, id) {
   ]);
 }
 
+import RECIPES_PRIVATE from "./_recipes.js";
+
+// Point d'extension pour les futurs abonnements : retourner false pour réserver la recette aux abonnés.
+const hasAccess = (_user) => true;
+
 async function route(request, env, parts, body) {
+  if (parts[0] === "recipes" && parts[1] && request.method === "GET") {
+    const me = await requireUser(request, env);
+    if (!hasAccess(me)) bad("Abonnement requis.", 402);
+    const rec = Object.prototype.hasOwnProperty.call(RECIPES_PRIVATE, parts[1]) ? RECIPES_PRIVATE[parts[1]] : null;
+    if (!rec) bad("Recette introuvable.", 404);
+    return json({ recipe: rec });
+  }
   const db = env.DB;
   const m = request.method;
   const [a, b, c] = parts;
