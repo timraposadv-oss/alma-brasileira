@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Alma brasileira – recettes brésiliennes pour les Belges</title>
-<meta name="description" content="Feijoada, moqueca, pão de queijo, brigadeiro… des recettes brésiliennes adaptées aux ingrédients belges, en 5 langues. Ma liste d’épices et forum gratuits.">
+<title>Alma brasileira – Le Brésil dans votre cuisine</title>
+<meta name="description" content="Recettes brésiliennes adaptées aux ingrédients belges : feijoada, moqueca, pão de queijo, galinhada, brigadeiro… Mode cuisine, liste de courses, en 5 langues.">
 <meta name="google-site-verification" content="gRkyLQ9mfXvy9jWm_ecnvkB0cVU2VdfoFrQ_viK-FhY" />
-<meta name="theme-color" content="#0A6B45">
+<meta name="theme-color" content="#24583F">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Alma brasileira – recettes brésiliennes adaptées aux goûts belges">
+<meta property="og:title" content="Alma brasileira – Le Brésil dans votre cuisine">
 <meta property="og:description" content="Des recettes brésiliennes faciles avec des ingrédients belges, en français, néerlandais, allemand, anglais et portugais.">
 <meta property="og:image" content="https://alma-brasileira.pages.dev/og.png">
 <meta property="og:url" content="https://alma-brasileira.pages.dev/">
@@ -19,23 +19,29 @@
 <link rel="apple-touch-icon" href="icon-192.png">
 <link rel="stylesheet" href="style.css">
 <script src="config.js"></script>
+<script src="lib.js"></script>
+<script src="i18n.js"></script>
 <script src="app.js" defer></script>
 </head>
 <body>
+<a id="skip" class="skip" href="#main">Aller au contenu</a>
 <header>
  <div class="top">
-  <svg width="38" height="38" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="8" fill="#0d5a3a"/><polygon points="20,5 36,20 20,35 4,20" fill="#FFC72C"/><circle cx="20" cy="20" r="7" fill="#123F73"/></svg>
-  <h1>Alma brasileira</h1>
+  <a class="brand" href="#accueil" aria-label="Alma brasileira">
+   <svg width="38" height="38" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="9" fill="#24583F"/><polygon points="20,6 35,20 20,34 5,20" fill="#F1C45B"/><circle cx="20" cy="20" r="7" fill="#C66D4E"/></svg>
+   <span>Alma brasileira</span>
+  </a>
   <button id="auth" class="authbtn" type="button"></button>
   <select id="lang" aria-label="Language"><option value="fr">Français</option><option value="nl">Nederlands</option><option value="de">Deutsch</option><option value="en">English</option><option value="pt">Português (BR)</option></select>
  </div>
  <div class="search"><input id="q" type="search" autocomplete="off" aria-label="Search"></div>
- <nav><button type="button" data-v="recettes"></button><button type="button" data-v="epices"></button><button type="button" data-v="forum"></button><button type="button" data-v="mod" hidden></button></nav>
 </header>
 <div id="banner" role="status" hidden></div>
-<main id="main"></main>
+<main id="main" tabindex="-1"></main>
 <footer id="foot"></footer>
+<div id="more" class="more" hidden></div>
+<nav id="nav" class="bnav" aria-label="Navigation"></nav>
 <dialog id="dlg"></dialog>
-<noscript><p class="pagehead">Cette application a besoin de JavaScript. / This app needs JavaScript.</p><ul><li><a href="r/feijoada.html">Feijoada</a></li><li><a href="r/moqueca.html">Moqueca de camarão</a></li><li><a href="r/caldo.html">Caldo de frango</a></li><li><a href="r/pequi.html">Arroz com pequi</a></li><li><a href="r/pudim.html">Pudim de leite</a></li><li><a href="r/pao.html">Pão de queijo</a></li><li><a href="r/brig.html">Brigadeiro</a></li><li><a href="r/coxinha.html">Coxinha</a></li><li><a href="r/bacalhau.html">Bolinho de bacalhau</a></li><li><a href="r/vinagrete.html">Vinagrete</a></li><li><a href="r/strogonoff.html">Strogonoff de frango</a></li><li><a href="r/bobo.html">Bobó de camarão</a></li><li><a href="r/escondidinho.html">Escondidinho de carne seca</a></li><li><a href="r/quiabo.html">Frango com quiabo</a></li><li><a href="r/farofa.html">Farofa</a></li><li><a href="r/couve.html">Couve refogada</a></li><li><a href="r/arroz.html">Arroz brasileiro</a></li><li><a href="r/tropeiro.html">Feijão tropeiro</a></li><li><a href="r/quindim.html">Quindim</a></li><li><a href="r/maracuja.html">Mousse de maracujá</a></li><li><a href="r/cenoura.html">Bolo de cenoura com chocolate</a></li></ul></noscript>
+<noscript><p class="pagehead">Cette application a besoin de JavaScript. / This app needs JavaScript.</p><ul><li><a href="r/feijoada.html">Feijoada</a></li><li><a href="r/moqueca.html">Moqueca de camarão</a></li><li><a href="r/caldo.html">Caldo de frango</a></li><li><a href="r/pequi.html">Arroz com pequi</a></li><li><a href="r/pudim.html">Pudim de leite</a></li><li><a href="r/pao.html">Pão de queijo</a></li><li><a href="r/brig.html">Brigadeiro</a></li><li><a href="r/coxinha.html">Coxinha</a></li><li><a href="r/bacalhau.html">Bolinho de bacalhau</a></li><li><a href="r/vinagrete.html">Vinagrete</a></li><li><a href="r/strogonoff.html">Strogonoff de frango</a></li><li><a href="r/bobo.html">Bobó de camarão</a></li><li><a href="r/escondidinho.html">Escondidinho de carne seca</a></li><li><a href="r/quiabo.html">Frango com quiabo</a></li><li><a href="r/farofa.html">Farofa</a></li><li><a href="r/couve.html">Couve refogada</a></li><li><a href="r/arroz.html">Arroz brasileiro</a></li><li><a href="r/tropeiro.html">Feijão tropeiro</a></li><li><a href="r/quindim.html">Quindim</a></li><li><a href="r/maracuja.html">Mousse de maracujá</a></li><li><a href="r/cenoura.html">Bolo de cenoura com chocolate</a></li><li><a href="r/galinhada.html">Galinhada</a></li></ul></noscript>
 </body>
 </html>

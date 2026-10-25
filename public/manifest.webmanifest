@@ -1,13 +1,13 @@
 {
   "name": "Alma brasileira",
   "short_name": "Alma",
-  "description": "Recettes brésiliennes adaptées aux goûts belges",
+  "description": "Le Brésil dans votre cuisine",
   "lang": "fr",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#F3F6EE",
-  "theme_color": "#0A6B45",
+  "background_color": "#FFF8EC",
+  "theme_color": "#24583F",
   "categories": ["food", "lifestyle"],
   "icons": [
     { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
