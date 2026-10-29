@@ -181,10 +181,12 @@ import RECIPES_PRIVATE from "./_recipes.js";
 
 // Point d'extension pour les futurs abonnements : retourner false pour réserver la recette aux abonnés.
 const hasAccess = (_user) => true;
+// Lecture des recettes ouverte aux visiteurs sans compte (test de 4 semaines). Mettre false pour refermer.
+const OPEN_READING = true;
 
 async function route(request, env, parts, body) {
   if (parts[0] === "recipes" && parts[1] && request.method === "GET") {
-    const me = await requireUser(request, env);
+    const me = OPEN_READING ? await getUser(request, env) : await requireUser(request, env);
     if (!hasAccess(me)) bad("Abonnement requis.", 402);
     const rec = Object.prototype.hasOwnProperty.call(RECIPES_PRIVATE, parts[1]) ? RECIPES_PRIVATE[parts[1]] : null;
     if (!rec) bad("Recette introuvable.", 404);
