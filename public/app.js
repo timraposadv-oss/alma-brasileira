@@ -158,9 +158,8 @@ async function recipeView(slug, n) {
     `<div class="actions"><button class="btn ghost" type="button" data-fav="${esc(slug)}" aria-pressed="${f}">${f ? "♥ " + esc(tt("favDel")) : "♡ " + esc(tt("favAdd"))}</button><button class="btn ghost" type="button" data-share="${esc(slug)}">${esc(tt("share"))}</button><button class="btn ghost" type="button" data-print>${esc(tt("print"))}</button></div>` +
     `<section><h2>${esc(tt("hOrigin"))}</h2><p>${esc(L10(r.origin))}</p></section>` +
     `<section><h2>${esc(tt("hAllergens"))}</h2><p>${r.allergens.length ? r.allergens.map((a) => `<span class="pill warn">${esc(tt("al_" + a))}</span>`).join(" ") : esc(tt("noAllergen"))}${r.diet.veg ? ` <span class="pill">${esc(tt("veg"))}</span>` : ""}${r.diet.vegan ? ` <span class="pill">${esc(tt("vegan"))}</span>` : ""}${r.diet.lf ? ` <span class="pill">${esc(tt("lf"))}</span>` : ""}${r.diet.gf ? ` <span class="pill">${esc(tt("gf"))}</span>` : ""}</p><p class="small">${esc(tt("allergy"))}</p></section>`;
-  if (!token) { m.innerHTML = head + `<section class="lock"><h2>🔒 ${esc(tt("lockT"))}</h2><p>${esc(tt("lock"))}</p><button class="btn y" type="button" data-auth>${esc(tt("login"))}</button></section><p class="small status">${esc(tt("status"))}</p></article>`; return; }
   m.innerHTML = head + `<p role="status">${esc(tt("loading"))}</p></article>`;
-  let full; try { full = await getFull(slug); } catch (e) { if (n !== seq) return; if (!token) return recipeView(slug, n); m.innerHTML = head + `<p class="err" role="alert">${esc(e.network ? tt("offline") : e.message)}</p></article>`; return; }
+  let full; try { full = await getFull(slug); } catch (e) { if (n !== seq) return; m.innerHTML = head + `<p class="err" role="alert">${esc(e.network ? tt("offline") : e.message)}</p></article>`; return; }
   if (n !== seq) return;
   const srv = PORT[slug] || r.servings, madeOn = ST.get("made", {})[slug], note = ST.get("notes", {})[slug] || "";
   const subs = full.ing.filter((it) => ING[it.k] && ING[it.k].sub);
@@ -179,7 +178,6 @@ let cookState = null, wake = null, audioCtx = null, tickT = null;
 async function cookStart(slug, n) {
   const r = RECIPES.find((x) => x.slug === slug);
   if (!r) { location.hash = "#recettes"; return; }
-  if (!token && !ST.get("rc:" + slug, null)) { location.hash = "#recette/" + slug; msg(tt("lockT")); return; }
   let full; try { full = await getFull(slug); } catch (e) { msg(e.network ? tt("offline") : e.message); location.hash = "#recette/" + slug; return; }
   const st = SS.get("cook:" + slug, { step: 0, ing: {} });
   cookState = { r, full, step: Math.min(st.step, full.steps.length - 1), ing: st.ing || {}, timers: {}, showIng: false, srv: PORT[slug] || r.servings };

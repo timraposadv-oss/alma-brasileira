@@ -1,5 +1,5 @@
 // Garde l'application et les recettes disponibles hors ligne (jamais l'API ni les données personnelles).
-const V = "alma-v5";
+const V = "alma-v6";
 const SHELL = ["./", "index.html", "style.css", "app.js", "lib.js", "i18n.js", "config.js", "recipes.json", "ingredients.json", "regions.json", "glossary.json", "manifest.webmanifest", "icon.svg", "legal.html", "legal.js"];
 self.addEventListener("install", (e) => {
   e.waitUntil(caches.open(V).then((c) => c.addAll(SHELL)));
