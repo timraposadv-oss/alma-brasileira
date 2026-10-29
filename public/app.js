@@ -68,7 +68,7 @@ const dlgHead = (t) => `<div class="dh"><h2 id="dt">${t}</h2><button class="x" t
 
 /* ---------- navigation ---------- */
 const MAIN = [["accueil", "nHome", "🏠"], ["recettes", "nRecipes", "📖"], ["cuisiner", "nCook", "🥘"], ["courses", "nShop", "🛒"], ["favoris", "nFavs", "♥"]];
-const MORE = [["regions", "nRegions"], ["glossaire", "nGloss"], ["epices", "nSpices"], ["forum", "nForum"]];
+const MORE = [["regions", "nRegions"], ["glossaire", "nGloss"], ["guide-belgique.html", "nGuide"], ["epices", "nSpices"], ["forum", "nForum"]];
 const parse = () => { const h = decodeURIComponent(location.hash.replace(/^#\/?/, "")); const [a, ...b] = h.split("/"); return { page: a || "accueil", arg: b.join("/") }; };
 function renderChrome() {
   document.documentElement.lang = lang === "pt" ? "pt-BR" : lang;
@@ -76,7 +76,7 @@ function renderChrome() {
   $("#nav").innerHTML = MAIN.map(([id, k, ic]) => `<a href="#${id}" ${active === id ? 'aria-current="page"' : ""}><span class="ic" aria-hidden="true">${ic}</span><span>${esc(tt(k))}</span></a>`).join("") +
     `<button type="button" id="morebtn" aria-expanded="false" aria-controls="more"><span class="ic" aria-hidden="true">⋯</span><span>${esc(tt("nMore"))}</span></button>`;
   const links = MORE.concat(user && user.admin ? [["mod", "mod"]] : []);
-  $("#more").innerHTML = links.map(([id, k]) => `<a href="#${id}" ${active === id ? 'aria-current="page"' : ""}>${esc(tt(k))}</a>`).join("");
+  $("#more").innerHTML = links.map(([id, k]) => `<a href="${id.endsWith(".html") ? id : "#" + id}" ${active === id ? 'aria-current="page"' : ""}>${esc(tt(k))}</a>`).join("");
   $("#more").hidden = true;
   $("#auth").textContent = user ? user.name : tt("login");
   $("#q").placeholder = tt("search"); $("#q").setAttribute("aria-label", tt("search"));
@@ -166,7 +166,7 @@ async function recipeView(slug, n) {
   const body = `<section><div class="sech"><h2>${esc(tt("hIng"))}</h2><div class="stepper" role="group" aria-label="${esc(tt("servings"))}"><button type="button" data-port="-1" aria-label="−">−</button><output id="srv" aria-live="polite">${srv} ${esc(tt("people"))}</output><button type="button" data-port="1" aria-label="+">+</button></div></div><ul class="ings" id="ings">${ingList(r, full, srv)}</ul><p class="small" id="scalenote" ${srv === r.servings ? "hidden" : ""}>${esc(tt("scaleNote"))}</p></section>` +
     `<div class="actions"><a class="btn" href="#cuisine/${esc(slug)}">▶ ${esc(tt("cookMode"))}</a><button class="btn y" type="button" data-addlist="${esc(slug)}">${esc(tt("addList"))}</button></div>` +
     `<section><h2>${esc(tt("hSteps"))}</h2><ol class="steps">${full.steps.map((s) => `<li>${esc(L10(s.t))}${s.timer ? ` <span class="pill">⏱ ${esc(fmtMin(Math.round(s.timer / 60)))}</span>` : ""}</li>`).join("")}</ol></section>` +
-    `<section><h2>${esc(tt("hTip"))}</h2><p>${esc(L10(full.tip))}</p></section><section><h2>${esc(tt("hStorage"))}</h2><p>${esc(L10(full.storage))}</p></section><section><h2>${esc(tt("hBelgian"))}</h2><p class="note">${esc(L10(full.be))}</p></section>` +
+    `<section><h2>${esc(tt("hTip"))}</h2><p>${esc(L10(full.tip))}</p></section><section><h2>${esc(tt("hStorage"))}</h2><p>${esc(L10(full.storage))}</p></section><section><h2>${esc(tt("hBelgian"))}</h2><p class="note">${esc(L10(full.be))}</p><p><a class="link" href="guide-belgique.html">${esc(tt("guideLink"))}</a></p></section>` +
     (subs.length ? `<section><h2>${esc(tt("hSubs"))}</h2><ul>${subs.map((it) => `<li><b>${esc(A.nameOf(ING, it.k, lang, false))}</b> – ${esc(L10(ING[it.k].sub))}</li>`).join("")}</ul></section>` : "") +
     `<div class="actions"><button class="btn ghost" type="button" data-addsp="${esc(slug)}">${esc(tt("add"))}</button>${madeOn ? `<span class="pill">✓ ${esc(tt("madeOn", { d: fmtDate(madeOn) }))}</span><button class="link" type="button" data-made="${esc(slug)}">${esc(tt("madeUndo"))}</button>` : `<button class="btn ghost" type="button" data-made="${esc(slug)}">✓ ${esc(tt("made"))}</button>`}</div>` +
     `<section><label for="note"><b>${esc(tt("noteL"))}</b></label><textarea id="note" data-note="${esc(slug)}" rows="3" maxlength="600" placeholder="${esc(tt("notePh"))}">${esc(note)}</textarea></section><p class="err" role="alert"></p><p class="small status">${esc(tt("status"))}</p>`;
